@@ -15,23 +15,16 @@ import aboutImage3 from './components/images/aboutImage3.jpeg'
 import aboutImage2 from './components/images/aboutImage2.jpeg'
 import breadLeft from './components/images/breadLeft.jpeg'
 import { commerce } from './lib/commerce'
+import Cart from './pages/Cart';
 
 
 
 function App() {
 
 
-  // let products = [
-  //   {image: breadLeft, name: 'Gift Card', price: 35, id: 1, categories: ['pastries']},
-  //   {image: aboutImage3, name: 'Seed Loaf', price: 55, id: 2, categories: ['bread']},
-  //   {image: aboutImage2, name: 'Cinnamon Sugar Loaf', price: 15, id: 3, categories: ['pastries']},
-  //   {image: aboutImage3, name: 'Country Loaf', price: 65, id: 4, categories: ['bread']},
-  
-  // ]
-
   const [ products, setProducts ] = useState([])
-  const [loading, setLoading ] = useState(true)
-
+  const [ cart, setCart ] = useState({});
+  const [ cartError, setCartError ] = useState('');
 
   const fetchProducts = async () => {
 
@@ -40,28 +33,50 @@ function App() {
       const { data }  = await commerce.products.list()
 
       setProducts( data );
-      // loading(false)
       
-      // console.log( data[0].categories[0].name );
-
     }catch(error) {
 
       console.log('on your products', error);
     }    
   }
 
-  // const [ pastries, setPastries ] = useState([]);
+  const fetchCart = async () => {
 
-  // const pastriesArray = products.filter ((pastry) => pastry.categories[0].name === 'pastries')
+    try{
 
-  
-  // console.log(products[0])
+      const cart = await commerce.cart.retrieve();
+      
+      setCart(cart)
+      
 
-  // console.log(products[0] === undefined)
+    }catch(error){
+
+      console.log(error)
+
+    }
+  }
+
+  const addToCart = async (productId, quantity) => {
+
+
+    try {
+
+      const item = await commerce.cart.add(productId, quantity)
+      
+      setCart(item.cart)
+
+    }catch(error) {
+
+      setCartError(error)
+
+    }
+  }
+
 
   useEffect(() => {
 
     fetchProducts();
+    fetchCart();
 
   }, []);
 
@@ -71,14 +86,15 @@ function App() {
       <GlobalStyles />
       
       <BrowserRouter>
-        <Nav /> 
+        <Nav cartItems = { cart.total_items }/> 
         <Routes>
           <Route exact path="/" element = {<Home />} />
           <Route path="/order/*" element = {<Order products={ products } />} />
           <Route path="/menu" element = {<Menu />} />
           <Route path="/about" element = {<About />} />
           <Route path="/blog" element = {<Blog />} />
-          <Route path="/products/:id" element={<ProductDetails products={ products } />} />
+          <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError }/>} />
+          <Route path='/cart' element={ <Cart cart={ cart }/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

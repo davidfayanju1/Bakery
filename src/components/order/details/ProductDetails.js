@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { DetailsContainer, Product, DetailsFlex, ImageSection, DetailsSection, IngredientsFlex, Ingredients, OthersGrid, OtherProducts, OtherProductsCard } from './styledProductDetails'
 import { Link } from 'react-router-dom'
 
-function ProductDetails( { products }) {
+function ProductDetails( { products, addToCart, cartError }) {
 
     const { id } = useParams();
+    const [ value, setValue ] = useState('');
+    const [ pageError, setPageError ] = useState(true)
+
+    const takeInput = (e) => {
+
+      if (e.target.value === '0'){
+
+        setPageError(true)
+
+      } else if ( e.target.value === '') {
+
+        setPageError(true)
+        
+      } else {
+
+        setValue(e.target.value);
+        setPageError(false);
+
+      }
+
+    }
+
+    
+
+    
 
   return (
     <DetailsContainer>
@@ -25,9 +50,10 @@ function ProductDetails( { products }) {
               <p>{ product.description }</p>
               <div className="quantity">
                 <label htmlFor="quantity">Quantity:</label>
-                <input type="number" value={1} min="1" name="quantity"/>
+                <input type="number" min="1" name="quantity" onChange = { takeInput }/>
               </div>
-              <button><Link to='/'>Add To Cart</Link></button>
+              {/* <p>{ cartError.data === undefined ? null : cartError.data.error.message }</p> */}
+              <button onClick={ () => { addToCart(product.id, value)}} disabled={ pageError ? true : false }>Add To Cart</button>
             </DetailsSection>
           </DetailsFlex>
           <Ingredients>

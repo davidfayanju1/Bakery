@@ -4,7 +4,9 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { DesktopNav, MobileNav, NavItems, NavList, NavLink, NavHeader, Icon } from './styledNav';
 
 
-const Nav = () => {
+const Nav = ( cartItems ) => {
+
+
   return (
     <NavHeader>
       <DesktopNav>
@@ -28,8 +30,8 @@ const Nav = () => {
         </MobileNav>
         
         <Icon>
-          <p>2</p>
-          <AiOutlineShoppingCart id='cartIcon' />
+          <p>{ cartItems === undefined ? 'LOADING' : cartItems.cartItems }</p>
+          <Link to="/cart"><AiOutlineShoppingCart id='cartIcon' /></Link>
           <div className="hamburger">
             <span className="burger"></span>
             <span className="burger"></span>

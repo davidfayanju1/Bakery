@@ -68,7 +68,7 @@ export const DetailsSection = styled.div`
     top: 15%;
     left: 0;
     right: 0;
-    bottom: 5%;
+    bottom: 35%;
     padding: 4rem 0rem;
     align-self: flex-start;
 
@@ -93,7 +93,7 @@ export const DetailsSection = styled.div`
         background-color: black;
         color: white;
         height: 2rem;
-        width: 17rem;
+        width: 15rem;
 
         a {
             text-decoration: none;
@@ -107,6 +107,10 @@ export const DetailsSection = styled.div`
         }
     }
 
+    button:disabled {
+        background-color: #333333;
+    }
+
 
     .quantity {
         
@@ -115,12 +119,12 @@ export const DetailsSection = styled.div`
         label {
             font-size: 1.3rem;
             display: block;
-            margin-bottom: 0.85rem;
+            margin-bottom: 0.7rem;
         }
 
         input {
             width: 8rem;
-            height: 5rem;
+            height: 4rem;
             border: black 1px solid;
             outline: none;
             padding: 1rem 1rem;

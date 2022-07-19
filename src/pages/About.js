@@ -1,8 +1,11 @@
 import React from 'react'
+import AboutShowcase from '../components/about/AboutShowcase'
 
 const About = () => {
   return (
-    <div>About</div>
+    <div style={{height: '100%'}}>
+      <AboutShowcase />
+    </div>
   )
 }
 
