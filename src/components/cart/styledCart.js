@@ -23,18 +23,17 @@ export const CartCard = styled.div`
     width: 100%;
     min-height: 70px;
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 2rem;
     border-bottom: lightgray 1px solid;
     padding: 22px 0;
 
 
-    /* @media screen and (max-width: 1000px) {
-        
-        height: 5.5rem;
+    @media screen and (max-width: 1000px) {
 
-    } */
+        flex-wrap: wrap;
+
+    }
 
 
 
@@ -59,16 +58,26 @@ export const ItemImage = styled.div`
     }
 
 
-    /* @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 880px) {
 
+        height: 17.6vw;
+        width: 17.6vw;
+
+    }
+
+
+    @media screen and (max-width: 640px) {
 
         img {
-            height: 5rem;
-            width: 5.5rem;
-            margin-right: 0.5rem;
+
+            margin-right: 4vw;
 
         }
-    } */
+
+    }
+
+    
+
 
 `
 
@@ -90,6 +99,16 @@ export const ItemName = styled.div`
         text-rendering: optimizelegibility;
         -webkit-font-smoothing: antialiased;
         font-weight: 500;
+    }
+
+
+
+    @media screen and (max-width: 1000px ) {
+
+        flex-basis: 20%;
+        font-size: 3.2vw;
+        margin-right: 11px;
+
     }
 
 `
@@ -132,17 +151,22 @@ export const QuantityFlex = styled.div`
     }
 
 
-    @media screen and (max-width: 1000px ) {
+    @media screen and (max-width: 640px ) {
+
+        order: 2;
+        padding-left: 21.6vw;
+        text-align: left; 
+        width: 50%;
 
 
         p {
-            padding: 0rem 1rem;
-            margin-top: 1rem;
-            font-size: 1rem; 
+            padding: 0rem 0.8rem;
+            font-size: 1rem;
+            margin-top: 0.3rem; 
         }
 
         .quantity-icon {
-            font-size: 1.1rem;
+            font-size: 1rem;
             width: 1.9rem;
             height: 1.9rem;
             cursor: pointer;
@@ -188,9 +212,11 @@ export const ItemPrice = styled.div`
 
 
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 640px) {
 
-        height: 1.6rem;
+
+        order: 3;
+        width: 50%;
 
 
         p {
