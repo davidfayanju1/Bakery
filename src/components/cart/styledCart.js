@@ -102,7 +102,6 @@ export const QuantityFlex = styled.div`
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
-    background-color: green;
 
     button {
         background-color: transparent;
