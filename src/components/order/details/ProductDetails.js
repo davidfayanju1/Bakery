@@ -7,7 +7,8 @@ function ProductDetails( { products, addToCart, cartError }) {
 
     const { id } = useParams();
     const [ value, setValue ] = useState('');
-    const [ pageError, setPageError ] = useState(true)
+    const [ pageError, setPageError ] = useState(true);
+
 
     const takeInput = (e) => {
 
@@ -47,13 +48,12 @@ function ProductDetails( { products, addToCart, cartError }) {
             <DetailsSection>
               <h2>{product.name}</h2>
               <p>{product.price.formatted_with_symbol}</p>
-              <p>{ product.description }</p>
+              <p dangerouslySetInnerHTML={{ __html: product.description }} />
               <div className="quantity">
                 <label htmlFor="quantity">Quantity:</label>
                 <input type="number" min="1" name="quantity" onChange = { takeInput }/>
               </div>
-              {/* <p>{ cartError.data === undefined ? null : cartError.data.error.message }</p> */}
-              <button onClick={ () => { addToCart(product.id, value)}} disabled={ pageError ? true : false }>Add To Cart</button>
+              <button onClick={ () => { addToCart(product.id, value)}} disabled={ pageError ? true : false }>Add to cart</button>
             </DetailsSection>
           </DetailsFlex>
           <Ingredients>

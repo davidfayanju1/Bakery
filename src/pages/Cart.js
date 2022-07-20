@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { BiMinus, BiPlus } from 'react-icons/bi';
-import { CartCard, CartContainer, ItemImage, QuantityFlex, Icon, ItemPrice, ItemContainer, CartTotalSection, CartTotal, ItemName } from '../components/cart/styledCart';
+import { CartCard, CartContainer, ItemImage, QuantityFlex, Icon, ItemPrice, ItemContainer, CartTotalSection, CartTotal, ItemName, EmptyCart } from '../components/cart/styledCart';
 import { MdCancel } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, removeFromCart, updateCart }) => {
 
     const [loading, setLoading ] = useState(false);
+
     
   return (
     <CartContainer>
 
         <h2>Shopping Cart</h2>
+        {cart.line_items && cart.line_items.length === 0 ? 
+        
+        <EmptyCart>
+            <p>You have nothing in your shopping cart</p>
+            <button><Link to="/order">Continue Shopping</Link></button>
+        </EmptyCart>
+        
+        
+        : null }
+
         { 
         
         cart.line_items === undefined ? 'Loading...'
@@ -18,7 +30,6 @@ const Cart = ({ cart }) => {
          :
 
          cart.line_items.map ((item) => (
-
             
             <CartCard key= { item.id }>
                 
@@ -32,23 +43,24 @@ const Cart = ({ cart }) => {
                       
                 <QuantityFlex>
                     
-                        <button>
+                        <button onClick={() => { updateCart(item.id, item.quantity - 1)}}>
                             <BiMinus className='quantity-icon'/>
                         </button>
 
                         <p>{item.quantity}</p>
-                        <button>
+
+                        <button onClick={() => { updateCart(item.id, item.quantity + 1)}}>
                             <BiPlus className='quantity-icon'/>                           
                         </button>
                      
                 </QuantityFlex>
 
                 <ItemPrice>
-                    <p>{item.price.formatted_with_symbol }</p>
+                    <p>{item.line_total.formatted_with_symbol }</p>
                 </ItemPrice>
                     
                 <div className="cancel-icon">
-                    <Icon/>
+                    <Icon onClick={ () => { removeFromCart(item.id )}}/>
                 </div>
             </CartCard>
             
@@ -58,8 +70,8 @@ const Cart = ({ cart }) => {
 
         <CartTotalSection>
             {
-                 cart.subtotal === undefined ? 'LOADING DATA...'
-                 :
+                cart.subtotal && cart.line_items.length > 0 ?
+
                  <CartTotal>
                     <div className="cart-total-flex">
                         <p>Subtotal</p>
@@ -68,6 +80,7 @@ const Cart = ({ cart }) => {
 
                     <button>Checkout</button>
                  </CartTotal>
+                 : null
             }
         </CartTotalSection>      
     </CartContainer>

@@ -73,6 +73,25 @@ function App() {
   }
 
 
+  const updateCart = async (productId, quantity) => {
+
+    const { cart } = await commerce.cart.update(productId, { quantity });
+
+    setCart(cart)
+
+  }
+
+
+  const removeFromCart = async (productId) => {
+
+    const { cart } = await commerce.cart.remove(productId)
+    
+
+    setCart(cart);
+
+  }
+
+
   useEffect(() => {
 
     fetchProducts();
@@ -94,7 +113,7 @@ function App() {
           <Route path="/about" element = {<About />} />
           <Route path="/blog" element = {<Blog />} />
           <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError }/>} />
-          <Route path='/cart' element={ <Cart cart={ cart }/>} />
+          <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart }/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

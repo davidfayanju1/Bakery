@@ -2,9 +2,8 @@ import React from 'react'
 import { CarouselContainer } from './styledCarousel'
 import 'bootstrap/dist/css/bootstrap.css';
 import Carousel from 'react-bootstrap/Carousel';
-import sliderImage3 from '../../images/sliderImage3.jpg'
-import sliderImage1 from '../../images/sliderImage1.jpg'
-
+import hero1 from '../../images/hero1.jpg';
+import hero2 from '../../images/hero2.jpg';
 
 
 function ImageSlider() {
@@ -15,7 +14,7 @@ function ImageSlider() {
             <Carousel.Item>
                 <img
                 className="d-block w-100"
-                src={ sliderImage3 }
+                src={ hero1 }
                 alt="First slide"
                  id="image"/>
                 <Carousel.Caption>
@@ -25,7 +24,7 @@ function ImageSlider() {
             <Carousel.Item>
                 <img
                 className="d-block w-100"
-                src={ sliderImage1 }
+                src={ hero2 }
                 alt="Second slide"
                 id="image"/>
 

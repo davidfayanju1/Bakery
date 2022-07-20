@@ -8,10 +8,12 @@ export const CartContainer = styled.section`
 
     margin-top: 4.32rem;
     padding: 3.5rem 2rem;
-   
+    
+    h2 {
+        margin-bottom: 4rem;
+    }
 
     @media screen and (max-width: 1000px) {
-
 
         padding: 3.5rem 0.9rem;
 
@@ -273,9 +275,45 @@ export const CartTotal = styled.div`
     }
 
 
+    button:hover {
+        background-color: #333333;
+    }
+
+
     @media screen and (max-width: 768px) {
 
         width: 100%;
     }
+
+`
+
+export const EmptyCart = styled.div`
+
+    margin-bottom: 4rem;
+
+    p {
+        font-size: 1.4rem;
+    }
+
+
+    button {
+        width: 14rem;
+        height: 2.4rem;
+        background-color: black;
+        color: white;
+        border: none;
+        outline: none;
+
+        a {
+            text-decoration : none;
+            color: white;
+        }
+    }
+
+
+    button:hover {
+        background-color: #333333;
+    }
+
 
 `
