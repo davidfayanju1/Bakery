@@ -272,6 +272,12 @@ export const CartTotal = styled.div`
         color: white;
         border: none;
         outline: none;
+
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
     }
 
 

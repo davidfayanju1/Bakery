@@ -2,14 +2,14 @@ import React from 'react'
 import { AboutContainer, AboutHero, FirstSection, AboutFlexContainer, SectionContainer, SecondFlexContainer } from './styledAboutShowcase'
 import aboutPage from '../images/aboutPage.jpeg';
 import aboutPage1 from '../images/aboutPage1.jpeg';
-import slickImage3 from '../images/slickImage3.jpg';
+import about from '../images/about.jpg';
 
 
 function AboutShowcase() {
   return (
     <AboutContainer>
         <AboutHero>
-            <img src={ slickImage3 } alt="fine bread" />
+            <img src={ about } alt="fine bread" />
         </AboutHero>
 
         <SectionContainer>

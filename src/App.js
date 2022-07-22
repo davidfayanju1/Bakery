@@ -10,13 +10,9 @@ import Blog from './pages/Blog';
 import Nav from './components/compound/Nav';
 import Footer from './components/compound/Footer';
 import ProductDetails from './components/order/details/ProductDetails';
-import aboutImage from './components/images/aboutImage.jpeg';
-import aboutImage3 from './components/images/aboutImage3.jpeg'
-import aboutImage2 from './components/images/aboutImage2.jpeg'
-import breadLeft from './components/images/breadLeft.jpeg'
 import { commerce } from './lib/commerce'
 import Cart from './pages/Cart';
-
+import Checkout from './pages/Checkout';
 
 
 function App() {
@@ -91,6 +87,7 @@ function App() {
 
   }
 
+  const [show, setShow ] = useState(true);
 
   useEffect(() => {
 
@@ -105,7 +102,7 @@ function App() {
       <GlobalStyles />
       
       <BrowserRouter>
-        <Nav cartItems = { cart.total_items }/> 
+        {show && <Nav cartItems = { cart.total_items }/>} 
         <Routes>
           <Route exact path="/" element = {<Home />} />
           <Route path="/order/*" element = {<Order products={ products } />} />
@@ -114,8 +111,10 @@ function App() {
           <Route path="/blog" element = {<Blog />} />
           <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError }/>} />
           <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart }/>} />
+          <Route path='/checkout' element={<Checkout setShow = { setShow }/>} />
         </Routes>
-        <Footer />
+
+        {show && <Footer />}
       </BrowserRouter>
     </div>
   );

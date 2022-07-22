@@ -78,7 +78,7 @@ const Cart = ({ cart, removeFromCart, updateCart }) => {
                         <p>{ cart.subtotal.formatted_with_symbol }</p>
                     </div>
 
-                    <button>Checkout</button>
+                    <Link to= '/checkout'><button>Checkout</button></Link>
                  </CartTotal>
                  : null
             }
