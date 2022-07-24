@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, ref } from 'react'
 import { CheckoutContainer, CheckoutForm, CheckoutNav, Form,  FormFlex, FormGroup, CityFormGroup } from '../components/checkout/styledCheckout';
 import { Link } from 'react-router-dom';
 import { commerce } from '../lib/commerce';
+import { useForm, FormProvider } from 'react-hook-form';
+import Review from '../components/orderSummary/Review';
 
 function Checkout({ cart, setShow }) {
-
 
   const [ shippingCountries, setShippingCountries ] = useState([]);
   const [shippingCountry, setShippingCountry ] = useState('');
@@ -12,9 +13,7 @@ function Checkout({ cart, setShow }) {
   const [shippingSubdivision, setShippingSubdivision ] = useState('');
   const [shippingOptions, setShippingOptions ] = useState([]);
   const [shippingOption, setShippingOption ] = useState('');
-
   const [loading, setLoading] = useState(false)
-
   const [checkoutToken, setChekoutToken] = useState(null);
 
   const generateToken = async () => {
@@ -26,8 +25,7 @@ function Checkout({ cart, setShow }) {
 
     }else {
 
-        setLoading(false)
-
+      setLoading(false)
 
         try{
 
@@ -53,10 +51,6 @@ function Checkout({ cart, setShow }) {
 
 
   setShow(false);
-
-  
-  
-
 
   const fetchShippingCountries = async() => {
 
@@ -134,93 +128,103 @@ function Checkout({ cart, setShow }) {
 
 
 
+  const { methods, register, handleSubmit } = useForm();
+  const [ shippingData, setShippingData ] = useState({})
+  const [openPage, setOpenPage ] = useState(false);
 
-  console.log(options);
-  
+  const onSubmit = (data) => {
+    
+    setShippingData({...data, shippingSubdivision, shippingOption })
+    setOpenPage(true);
+      
+  };  
+
   return (
     <CheckoutContainer>
-
       <CheckoutNav>
         <h1><Link to="/">LOAM BAKERY</Link></h1>
       </CheckoutNav>
-
-      <CheckoutForm>
-        
-
-        <Form>
-            
+      <div>
+      {
+        !openPage ?
+        <CheckoutForm>
+          <Form>            
             <div className="form-title">
               <h2>Shipping</h2>
             </div>
+            <FormProvider >          
+              <form onSubmit = {handleSubmit(onSubmit)}>
+                <FormFlex>
+                  <FormGroup>
+                    <label htmlFor="firstName">First Name</label>
+                    <input type="text" name="firstName" placeholder="First Name" {...register('firstName')}required/>
+                  </FormGroup>
+                  <FormGroup>
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text" name="lastName" placeholder="Last Name" {...register('lastName')}required/>
+                  </FormGroup>
+                </FormFlex>
 
-          <form onSubmit = ''>
-            <FormFlex>
-              <FormGroup>
-                <label htmlFor="firstName">First Name</label>
-                <input type="text" name="firstName" placeholder="First Name" required/>
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="lastName">Last Name</label>
-                <input type="text" name="lastName" placeholder="Last Name" required/>
-              </FormGroup>
-            </FormFlex>
+                <FormFlex>
+                  <FormGroup>
+                    <label htmlFor="address">Address</label>
+                    <input type="text" name="address" placeholder="Address" {...register('address')} required/>
+                  </FormGroup>
+                  <FormGroup>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" placeholder="Email" {...register('email')} required/>
+                  </FormGroup>  
+                </FormFlex>
 
-            <FormFlex>
-              <FormGroup>
-                <label htmlFor="address">Address</label>
-                <input type="text" name="address" placeholder="Address" required/>
-              </FormGroup>
-              <FormGroup>
-                <label htmlFor="email">Email</label>
-                <input type="email" name="email" placeholder="Email" required/>
-              </FormGroup>  
-            </FormFlex>
+                <CityFormGroup>
+                  <label htmlFor="city">City</label>
+                  <input type="text" name="city" placeholder="City" {...register('city')} required/>
+                </CityFormGroup>
 
-            <CityFormGroup>
-              <label htmlFor="city">City</label>
-              <input type="text" name="city" placeholder="City" required/>
-            </CityFormGroup>
-
-            <FormFlex>
-              <FormGroup>
-                <label htmlFor="shippingSubdivision">Shipping Region</label>
-                <select name="shippingcountry" value={ shippingSubdivision } onChange={ (e) => setShippingSubdivision(e.target.value)}>
-                  {loading ? 
-                  <option>
-                    LOADING...
-                  </option>
-                  :
-                  subdivisions.map((subdivision) => (
-                      <option key={subdivision.id} value={subdivision.id}>
-                        { subdivision.label }
+                <FormFlex>
+                  <FormGroup>
+                    <label htmlFor="shippingSubdivision">Shipping Region</label>
+                    <select name="shippingcountry" value={ shippingSubdivision } onChange={ (e) => setShippingSubdivision(e.target.value)}>
+                      {loading ? 
+                      <option>
+                        LOADING...
                       </option>
-                  ))}
-                </select>
-              </FormGroup>
+                      :
+                      subdivisions.map((subdivision) => (
+                          <option key={subdivision.id} value={subdivision.id}>
+                            { subdivision.label }
+                          </option>
+                      ))}
+                    </select>
+                  </FormGroup>
 
-              <FormGroup>
-                <label htmlFor="shippingSubdivision">Shipping Fees</label>
-                <select value={ shippingOption} onChange={ (e) => setShippingOption(e.target.value)}>
-                    {
-                      options.map((option) => (
-                        <option key={ option.id } value={option.id}>
-                          { option.label }
-                        </option>
-                      ))
-                    }
-                </select>
-              </FormGroup>
-              
-            </FormFlex>
+                  <FormGroup>
+                    <label htmlFor="shippingSubdivision">Shipping Fees</label>
+                    <select value={ shippingOption} onChange={ (e) => setShippingOption(e.target.value)}>
+                        {
+                          options.map((option) => (
+                            <option key={ option.id } value={option.id}>
+                              { option.label }
+                            </option>
+                          ))
+                        }
+                    </select>
+                  </FormGroup>
+                  
+                </FormFlex>
 
-            <div className="submit-button">
-              <Link to="/cart"><button>Back</button></Link> 
-              <button type="submit">Next</button>
-            </div>
-          </form>  
-        </Form>
-      </CheckoutForm>
-
+                <div className="submit-button">
+                  <Link to="/cart"><button>Back</button></Link> 
+                  <button type="submit">Next</button>
+                </div>
+              </form>
+            </FormProvider>  
+          </Form>
+        </CheckoutForm>
+        :
+        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage }/>
+      }
+    </div>
     </CheckoutContainer>
   )
 }

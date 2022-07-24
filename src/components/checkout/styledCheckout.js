@@ -28,12 +28,19 @@ export const CheckoutNav = styled.div`
             text-decoration: none;
             color: black;
         }
+
+
+        @media screen and (max-width: 768px) {
+
+            font-size: 1.6rem;
+
+        }
     }
 
 
     @media screen and (max-width: 768px) {
 
-        padding: 2rem 2rem;
+        padding: 2rem .9rem;
 
     }
 
