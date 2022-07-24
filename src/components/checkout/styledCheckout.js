@@ -61,7 +61,7 @@ export const CheckoutForm = styled.div`
 
 `
 
-export const Form = styled.form`
+export const Form = styled.div`
 
     width: 100%;
     max-width: 35rem;
@@ -83,6 +83,45 @@ export const Form = styled.form`
         height: 0.1rem;
         background-color: rgb(243, 243, 243);
 
+    }
+
+    form {
+
+
+        .submit-button {
+
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+
+                width: 7rem;
+                height: 2.3rem;
+                border: 1px solid lightgrey;
+                background-color: transparent;
+            }
+
+            a + button {
+
+                color: white;
+                background-color: black;
+                border: none;
+
+                &:hover {
+                    background-color: #333333; 
+                }
+            }
+
+
+            a { 
+                    
+                    text-decoration: none;
+            }
+
+
+        }
     }
 
     @media screen and (max-width: 768px) {
@@ -121,7 +160,7 @@ export const FormGroup = styled.div`
     width: 48%;
 
     label {
-        display: none;
+        display: block;
         font-size: 0.87rem;
     }
 
@@ -146,8 +185,7 @@ export const FormGroup = styled.div`
         height: 3rem;
         border: lightgrey 1px solid;
         outline: none;
-        padding: 1rem 1rem;
-        font-size: 16px;
+        padding: 0rem 1rem;
 
         /* &::placeholder {
         

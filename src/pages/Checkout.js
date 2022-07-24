@@ -1,14 +1,142 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { CheckoutContainer, CheckoutForm, CheckoutNav, Form,  FormFlex, FormGroup, CityFormGroup } from '../components/checkout/styledCheckout';
 import { Link } from 'react-router-dom';
+import { commerce } from '../lib/commerce';
+
+function Checkout({ cart, setShow }) {
 
 
+  const [ shippingCountries, setShippingCountries ] = useState([]);
+  const [shippingCountry, setShippingCountry ] = useState('');
+  const [ shippingSubdivisions, setShippingSubdivisions ] = useState([]);
+  const [shippingSubdivision, setShippingSubdivision ] = useState('');
+  const [shippingOptions, setShippingOptions ] = useState([]);
+  const [shippingOption, setShippingOption ] = useState('');
+
+  const [loading, setLoading] = useState(false)
+
+  const [checkoutToken, setChekoutToken] = useState(null);
+
+  const generateToken = async () => {
 
 
-function Checkout({ setShow}) {
+    if(cart.id === undefined) {
+
+      setLoading(true)
+
+    }else {
+
+        setLoading(false)
+
+
+        try{
+
+            const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' })
+            
+            setChekoutToken(token);
+
+        }catch(error) {
+    
+          console.log(error)
+    
+        }
+    }
+
+    }
+
+
+  useEffect (() => {
+
+    generateToken()
+
+  }, [cart]);
+
 
   setShow(false);
 
+  
+  
+
+
+  const fetchShippingCountries = async() => {
+
+    if(checkoutToken){
+
+      try{
+
+        const {countries } = await commerce.services.localeListShippingCountries(checkoutToken.id);
+        
+        setShippingCountries(countries);
+        setShippingCountry(Object.keys(countries)[0])
+
+      }catch(error) {
+
+        console.log(error);
+        
+      }
+
+    }
+    
+  }
+
+  const subdivisions = Object.entries(shippingSubdivisions).map(([code, name]) => ({id: code, label: name}))
+  const options = shippingOptions.map((sO) => ({id: sO.id, label: sO.price.formatted_with_symbol}))
+  
+
+  const fetchSubdivisions = async () => {
+
+      try {
+          
+        const { subdivisions } = await commerce.services.localeListSubdivisions(shippingCountry);
+
+        setShippingSubdivisions( subdivisions )
+        setShippingSubdivision(Object.keys(subdivisions)[0])
+
+      }catch (error) {
+
+        console.log(error)
+      }
+
+  }
+
+  const fetchShippingOptions = async (checkoutTokenId, country, region = null) => {
+
+    const options = await commerce.checkout.getShippingOptions(checkoutTokenId, {country, region})
+
+    setShippingOptions(options);
+    setShippingOption(options[0].id);
+
+  }
+
+
+
+
+  useEffect(() => {
+
+    fetchShippingCountries();
+
+
+  }, [checkoutToken]);
+
+  useEffect(() => {
+
+   if(shippingCountry) fetchSubdivisions();
+
+
+  }, [shippingCountry]);
+
+
+  useEffect (() => {
+
+    if(shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision)
+
+  }, [shippingSubdivision]);
+
+
+
+
+  console.log(options);
+  
   return (
     <CheckoutContainer>
 
@@ -20,64 +148,76 @@ function Checkout({ setShow}) {
         
 
         <Form>
+            
             <div className="form-title">
               <h2>Shipping</h2>
             </div>
 
-
+          <form onSubmit = ''>
             <FormFlex>
               <FormGroup>
                 <label htmlFor="firstName">First Name</label>
-                <input type="text" name="firstName" placeholder="First Name"/>
+                <input type="text" name="firstName" placeholder="First Name" required/>
               </FormGroup>
               <FormGroup>
                 <label htmlFor="lastName">Last Name</label>
-                <input type="text" name="lastName" placeholder="Last Name"/>
+                <input type="text" name="lastName" placeholder="Last Name" required/>
               </FormGroup>
             </FormFlex>
 
             <FormFlex>
               <FormGroup>
                 <label htmlFor="address">Address</label>
-                <input type="text" name="address" placeholder="Address"/>
+                <input type="text" name="address" placeholder="Address" required/>
               </FormGroup>
               <FormGroup>
                 <label htmlFor="email">Email</label>
-                <input type="email" name="email" placeholder="Email"/>
+                <input type="email" name="email" placeholder="Email" required/>
               </FormGroup>  
             </FormFlex>
 
             <CityFormGroup>
               <label htmlFor="city">City</label>
-              <input type="text" name="city" placeholder="City"/>
+              <input type="text" name="city" placeholder="City" required/>
             </CityFormGroup>
 
             <FormFlex>
               <FormGroup>
-                <label htmlFor="shippingCountry">Shipping Country</label>
-                <select name="shippingcountry">
-
+                <label htmlFor="shippingSubdivision">Shipping Region</label>
+                <select name="shippingcountry" value={ shippingSubdivision } onChange={ (e) => setShippingSubdivision(e.target.value)}>
+                  {loading ? 
+                  <option>
+                    LOADING...
+                  </option>
+                  :
+                  subdivisions.map((subdivision) => (
+                      <option key={subdivision.id} value={subdivision.id}>
+                        { subdivision.label }
+                      </option>
+                  ))}
                 </select>
               </FormGroup>
 
               <FormGroup>
-                <label htmlFor="shippingSubdivision">Shipping Subdivision</label>
-                <select name="shippingSubdivision">
-    
+                <label htmlFor="shippingSubdivision">Shipping Fees</label>
+                <select value={ shippingOption} onChange={ (e) => setShippingOption(e.target.value)}>
+                    {
+                      options.map((option) => (
+                        <option key={ option.id } value={option.id}>
+                          { option.label }
+                        </option>
+                      ))
+                    }
                 </select>
               </FormGroup>
               
             </FormFlex>
 
-            <FormFlex>
-              <FormGroup>
-                <label htmlFor="shippingOptions">Shipping Options</label>
-                <select name="shippingOptions">
-
-                </select>
-              </FormGroup>
-            </FormFlex>
-            
+            <div className="submit-button">
+              <Link to="/cart"><button>Back</button></Link> 
+              <button type="submit">Next</button>
+            </div>
+          </form>  
         </Form>
       </CheckoutForm>
 

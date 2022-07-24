@@ -87,14 +87,22 @@ function App() {
 
   }
 
+  
+
+
   const [show, setShow ] = useState(true);
+
 
   useEffect(() => {
 
     fetchProducts();
     fetchCart();
 
+
+
   }, []);
+
+ 
 
 
   return (
@@ -111,7 +119,7 @@ function App() {
           <Route path="/blog" element = {<Blog />} />
           <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError }/>} />
           <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart }/>} />
-          <Route path='/checkout' element={<Checkout setShow = { setShow }/>} />
+          <Route path='/checkout' element={<Checkout setShow = { setShow } cart={ cart } />} />
         </Routes>
 
         {show && <Footer />}

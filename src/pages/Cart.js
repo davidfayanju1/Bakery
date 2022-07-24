@@ -3,10 +3,12 @@ import { BiMinus, BiPlus } from 'react-icons/bi';
 import { CartCard, CartContainer, ItemImage, QuantityFlex, Icon, ItemPrice, ItemContainer, CartTotalSection, CartTotal, ItemName, EmptyCart } from '../components/cart/styledCart';
 import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { commerce } from '../lib/commerce';
 
 const Cart = ({ cart, removeFromCart, updateCart }) => {
 
     const [loading, setLoading ] = useState(false);
+    
 
     
   return (
