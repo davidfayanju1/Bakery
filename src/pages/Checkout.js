@@ -5,7 +5,7 @@ import { commerce } from '../lib/commerce';
 import { useForm, FormProvider } from 'react-hook-form';
 import Review from '../components/orderSummary/Review';
 
-function Checkout({ cart, setShow }) {
+function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
 
   const [ shippingCountries, setShippingCountries ] = useState([]);
   const [shippingCountry, setShippingCountry ] = useState('');
@@ -222,7 +222,7 @@ function Checkout({ cart, setShow }) {
           </Form>
         </CheckoutForm>
         :
-        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage }/>
+        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } order = {order } onCaptureCheckOut = {onCaptureCheckOut} error = {error} shippingData={ shippingData }/>
       }
     </div>
     </CheckoutContainer>

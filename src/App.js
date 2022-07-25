@@ -85,10 +85,35 @@ function App() {
 
     setCart(cart);
 
+  };
+
+
+  const refreshCart = async () => {
+
+      const newCart = await commerce.cart.refresh();
+      setCart(newCart);
   }
 
+  const [order, setOrder] = useState({})
+  const [ errorMssg, setErrorMssg ] = useState('');
   
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
 
+      try {
+
+        const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder)
+
+        setOrder(incomingOrder)
+        refreshCart();
+
+      }catch(error) {
+
+        setErrorMssg(error.data.error.message)
+
+      }
+
+
+  }
 
   const [show, setShow ] = useState(true);
 
@@ -119,7 +144,7 @@ function App() {
           <Route path="/blog" element = {<Blog />} />
           <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError }/>} />
           <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart }/>} />
-          <Route path='/checkout' element={<Checkout setShow = { setShow } cart={ cart } />} />
+          <Route path='/checkout' element={<Checkout setShow = { setShow } cart={ cart } order={order} onCaptureCheckOut={ handleCaptureCheckout} error={errorMssg}/> } />
         </Routes>
 
         {show && <Footer />}

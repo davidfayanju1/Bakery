@@ -157,8 +157,6 @@ export const Payment = styled.div`
         height: 16rem;
         border-top: 1px grey solid;
         padding: 1rem 1rem;
-
-
    }
 
 
