@@ -17,11 +17,17 @@ export const JumbotronContainer = styled.section`
     p {
         font-size: 3.85rem;
         width: 79%;
+
+        @media screen and (max-width: 1031px) {
+
+                width: 100%;
+
+        }
     }
 
     @media screen and (max-width: 768px) {
 
-        padding: 4rem 1rem;
+        padding: 3rem 1rem;
 
         img {
             
@@ -29,7 +35,7 @@ export const JumbotronContainer = styled.section`
         }
 
         p {
-            font-size: 2.5rem;
+            font-size: 2.24rem;
             width: 100%;
             margin-bottom: 4rem;
         }

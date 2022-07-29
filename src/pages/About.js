@@ -3,7 +3,7 @@ import AboutShowcase from '../components/about/AboutShowcase'
 
 const About = () => {
   return (
-    <div style={{height: '100%'}}>
+    <div>
       <AboutShowcase />
     </div>
   )

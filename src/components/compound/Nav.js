@@ -1,12 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { DesktopNav, MobileNav, NavItems, NavList, NavLink, NavHeader, Icon } from './styledNav';
+import { DesktopNav, MobileNav, NavItems, NavList, NavHeader, Icon } from './styledNav';
 
 
-const Nav = ( cartItems ) => {
+const Nav = (cartItems) => {
 
-
+  const [showNav, setShowNav] = useState(false);
+  
   return (
     <NavHeader>
       <DesktopNav>
@@ -16,25 +17,32 @@ const Nav = ( cartItems ) => {
           </div> 
 
           <NavList>
-            <li><NavLink to={'/order'}>ORDER</NavLink></li>
+            <li><NavLink to={'/order'} className ={({isActive}) => isActive ? 'active' : null}>ORDER</NavLink></li>
             <li><NavLink to={'/menu'}>MENU</NavLink></li>
             <li><NavLink to={'/about'}>ABOUT</NavLink></li>
-            <li><NavLink to={'/blog'}>BLOG</NavLink></li>
           </NavList>
         </NavItems>
+
+        <>
+        { showNav ? 
+      
         <MobileNav>
-            <li><NavLink to={'/order'}>ORDER</NavLink></li>
-            <li><NavLink to={'/menu'}>MENU</NavLink></li>
-            <li><NavLink to={'/about'}>ABOUT</NavLink></li>
-            <li><NavLink to={'/blog'}>BLOG</NavLink></li>
+            <li><NavLink to={'/order'} className ={({isActive}) => isActive ? 'active' : null} onClick={() => setShowNav(false)}>ORDER</NavLink></li>
+            <li><NavLink to={'/menu'} onClick={() => setShowNav(false)}>MENU</NavLink></li>
+            <li><NavLink to={'/about'} onClick={() => setShowNav(false)}>ABOUT</NavLink></li>
         </MobileNav>
+      
+        : null}
+        </>
         
         <Icon>
-          <p>{ cartItems === undefined ? 'LOADING' : cartItems.cartItems }</p>
-          <Link to="/cart"><AiOutlineShoppingCart id='cartIcon' /></Link>
-          <div className="hamburger">
-            <span className="burger"></span>
-            <span className="burger"></span>
+          <div className="icon-container">
+            <p>{ cartItems === undefined ? '...' : cartItems.cartItems }</p>
+            <Link to="/cart"><AiOutlineShoppingCart id='cartIcon' /></Link>
+          </div>
+          <div className={`hamburger ${showNav ? 'is-active' : null}`} onClick={() => setShowNav(!showNav)}>
+            <span className='burger'></span>
+            <span className='burger'></span>
           </div>
         </Icon>
       </DesktopNav>

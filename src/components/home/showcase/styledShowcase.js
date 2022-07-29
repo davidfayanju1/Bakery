@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom'
 
 
 export const ShowcaseContainer = styled.section`
-    margin-top: 4rem;
-    height: 90vh;
+    height: 100%;
     width: 100%;
-    padding: 6rem 1.7rem;
+    padding: 9rem 1.7rem;
 
+
+    @media screen and (max-width: 768px ) {
+        padding: 4.5rem 1.7rem;
+    }
 `
 
 export const FlexContainer = styled.div`

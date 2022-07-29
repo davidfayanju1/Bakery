@@ -12,9 +12,7 @@ const Order = ({ products }) => {
   let selected = {
     fontWeight: 'bolder'
   }
-
- 
-
+  
   return (
     <OrderContainer>
       <Aside>

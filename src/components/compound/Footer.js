@@ -27,13 +27,11 @@ function Footer() {
                         <Link to={'instagram.com'}>
                             <BsInstagram />
                         </Link>
-
-                        <Link to={'twitter.com'}>
-                            <FaTwitter />
-                        </Link>
-
                         <Link to={'facebook.com'}>
                             <FaFacebookF />
+                        </Link>
+                        <Link to={'twitter.com'}>
+                            <FaTwitter />
                         </Link>
                     </FooterIcons>
                 </SecondItemContainer>

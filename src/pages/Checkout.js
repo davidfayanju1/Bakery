@@ -5,7 +5,7 @@ import { commerce } from '../lib/commerce';
 import { useForm, FormProvider } from 'react-hook-form';
 import Review from '../components/orderSummary/Review';
 
-function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
+function Checkout({ cart, order, onCaptureCheckOut, error }) {
 
   const [ shippingCountries, setShippingCountries ] = useState([]);
   const [shippingCountry, setShippingCountry ] = useState('');
@@ -33,6 +33,7 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
             
             setChekoutToken(token);
 
+
         }catch(error) {
     
           console.log(error)
@@ -48,9 +49,6 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
     generateToken()
 
   }, [cart]);
-
-
-  setShow(false);
 
   const fetchShippingCountries = async() => {
 
@@ -86,6 +84,8 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
         setShippingSubdivisions( subdivisions )
         setShippingSubdivision(Object.keys(subdivisions)[0])
 
+        console.log(subdivisions)
+
       }catch (error) {
 
         console.log(error)
@@ -102,13 +102,9 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
 
   }
 
-
-
-
   useEffect(() => {
 
     fetchShippingCountries();
-
 
   }, [checkoutToken]);
 
@@ -116,9 +112,7 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
 
    if(shippingCountry) fetchSubdivisions();
 
-
   }, [shippingCountry]);
-
 
   useEffect (() => {
 
@@ -126,15 +120,13 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
 
   }, [shippingSubdivision]);
 
-
-
   const { methods, register, handleSubmit } = useForm();
   const [ shippingData, setShippingData ] = useState({})
   const [openPage, setOpenPage ] = useState(false);
 
   const onSubmit = (data) => {
     
-    setShippingData({...data, shippingSubdivision, shippingOption })
+    setShippingData({...data, shippingSubdivision, shippingOption, shippingCountry })
     setOpenPage(true);
       
   };  
@@ -168,7 +160,7 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
                 <FormFlex>
                   <FormGroup>
                     <label htmlFor="address">Address</label>
-                    <input type="text" name="address" placeholder="Address" {...register('address')} required/>
+                    <input type="text" name="address1" placeholder="Address" {...register('address1')} required/>
                   </FormGroup>
                   <FormGroup>
                     <label htmlFor="email">Email</label>
@@ -176,10 +168,16 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
                   </FormGroup>  
                 </FormFlex>
 
-                <CityFormGroup>
+              <FormFlex>
+                <FormGroup>
                   <label htmlFor="city">City</label>
                   <input type="text" name="city" placeholder="City" {...register('city')} required/>
-                </CityFormGroup>
+                </FormGroup>
+                <FormGroup>
+                  <label htmlFor="zipCode">ZIP / Postal code</label>
+                  <input type="text" name="zip" placeholder="ZIP / Postal code" {...register('zip')} required/>
+                </FormGroup>
+              </FormFlex>
 
                 <FormFlex>
                   <FormGroup>
@@ -222,7 +220,7 @@ function Checkout({ cart, setShow, order, onCaptureCheckOut, error }) {
           </Form>
         </CheckoutForm>
         :
-        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } order = {order } onCaptureCheckOut = {onCaptureCheckOut} error = {error} shippingData={ shippingData }/>
+        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } order = { order } onCaptureCheckOut = {onCaptureCheckOut} error = {error} shippingData={ shippingData }/>
       }
     </div>
     </CheckoutContainer>

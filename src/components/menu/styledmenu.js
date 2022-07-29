@@ -29,15 +29,20 @@ export const MenuFlexContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 6.5rem 0rem;
+    padding: 6.5rem 12rem;
 
+
+
+    @media screen and (max-width: 768px) {
+        padding: 6.5rem 2rem;
+    }
 
 `
 
 export const MenuFlexItems = styled.div`
 
         display: flex;
-        width: 65%;
+        width: 100%;
         justify-content: space-between;
         align-items: center;
         min-height: 25rem;
@@ -83,7 +88,7 @@ export const ItemCard = styled.div`
 
 
     @media screen and (max-width: 989px) {
-        width: 27rem;
+        width: 83vw;
     }
 
 

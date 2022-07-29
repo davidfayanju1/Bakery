@@ -5,6 +5,7 @@ export const AboutContainer = styled.section`
 
     margin-top: 4.32rem;
     width: 100%;
+    height: 100%;
 
 `
 
@@ -27,11 +28,11 @@ export const AboutHero = styled.div`
 export const SectionContainer = styled.section`
 
     width: 100%;
-    height: 120vh;
+    min-height: 90vh;
     padding: 3rem 12rem;
 
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1060px) {
 
         padding: 3rem 1.5rem;
 
@@ -46,7 +47,6 @@ export const AboutFlexContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 
     .story-texts {
         width: 45%;
@@ -66,11 +66,12 @@ export const AboutFlexContainer = styled.div`
         display: flex;
         height: 100%;
         align-items: center;
+        justify-content: space-between;
 
         img {
-            width: 50%;
-            margin-right: 0.85rem;
-            height: 50%;
+            width: 48%;
+            height: 71%;
+            object-fit: cover;
         }
 
         img:nth-child(1) {
@@ -84,7 +85,7 @@ export const AboutFlexContainer = styled.div`
     }
 
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1060px) {
 
         flex-direction: column;
         width: 100%;
@@ -102,22 +103,14 @@ export const AboutFlexContainer = styled.div`
                 font-size: 1.05rem;
             }
 
-            margin-bottom: 3rem;
+            /* margin-bottom: 3rem; */
         }
 
+
         .story-image {
+
             width: 100%;
-            display: flex;
-            height: 100%;
-            align-items: center;
 
-            img {
-                width: 50%;
-                height: 60%;
-                margin-right: 0.85rem;
-            }
-
-        
         }
 
     }
@@ -138,11 +131,13 @@ export const SecondFlexContainer = styled.div`
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        justify-content: flex-end;
+        height: 100%;
+        justify-content: center;
 
         img {
-            width: 18rem;
-            height: 22rem;
+            width: 48%;
+            height: 71%;
+            object-fit: cover;
         }
 
     }
@@ -162,20 +157,17 @@ export const SecondFlexContainer = styled.div`
     }
 
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1060px) {
 
+        margin-top: -10rem;
         flex-direction: column;
-        margin-top: 4rem;
+        height: 80%;
 
         .story-image {
             width: 100%;
             align-items: flex-start;
             justify-content: flex-start;
-
-            img {
-                width: 13rem;
-                height: 22rem;
-            }
+            margin-bottom: 2rem;
 
         }
 

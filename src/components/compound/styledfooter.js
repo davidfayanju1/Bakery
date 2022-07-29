@@ -45,6 +45,7 @@ export const FooterFlexItems = styled.div`
     @media screen and (max-width: 768px) {
 
         width: 100%;
+        justify-content: flex-start;
 
     }
 
@@ -59,6 +60,10 @@ export const FirstItemContainer = styled.div`
         margin-bottom: 3.5rem;
         font-weight: lighter;
         font-size: 1.3rem;
+
+        @media screen and (max-width: 768px) {
+            font-size: 1.15rem;
+        }
     }
 
     h2 + p {
@@ -103,19 +108,32 @@ export const SecondItemContainer = styled.div`
     }
 
 
+    @media screen and (max-width: 768px) {
+        margin-left: 4rem;
+    }
+
+
 `
 
 export const FooterIcons = styled.div`
 
-    width: 100%;
+    width: 6.4rem;
+    text-align: right;
 
     & > * {
-        margin-left: 1rem;
         color: black;
     }
 
     a {
         color: black;
+    }
+
+    a:nth-child(2) {
+        margin-right: 0.65rem;
+    }
+
+    a:nth-child(1) {
+        margin-right: 0.65rem;
     }
 
 `

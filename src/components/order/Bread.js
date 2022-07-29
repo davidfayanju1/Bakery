@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import aboutImage from '../images/aboutImage.jpeg';
 import { AllProductsContainer, ProductCard } from './styledOrder';
+import Spinner from 'react-bootstrap/Spinner';
+
+
 
 function Bread({products}) {
 
@@ -18,6 +21,12 @@ function Bread({products}) {
   return (
     <AllProductsContainer>
       {
+        breads.length === 0 ?
+              
+        <Spinner animation="border" />
+        
+        :
+
         breads.map ((product) => (
 
           <ProductCard key= {product.id} to={`/products/${ product.id }`}>

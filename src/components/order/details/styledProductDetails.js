@@ -7,6 +7,22 @@ export const DetailsContainer = styled.div`
     margin-top: 4.32rem;
     min-height: 30rem;
     padding: 6rem 2rem;
+    position: relative;
+
+
+    .details-spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
 
 `
 
@@ -40,8 +56,8 @@ export const ImageSection = styled.div`
 
     img {
         width: 100%;
-        margin-bottom: 4rem;
-        height: 30rem;
+        margin-bottom: 2rem;
+        height: 27rem;
         object-fit: cover;
     }
 
@@ -65,7 +81,7 @@ export const DetailsSection = styled.div`
 
     width: 41%;
     position: sticky;
-    top: 15%;
+    top: 12%;
     left: 0;
     right: 0;
     bottom: 35%;

@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom';
 import { DetailsContainer, Product, DetailsFlex, ImageSection, DetailsSection, IngredientsFlex, Ingredients, OthersGrid, OtherProducts, OtherProductsCard } from './styledProductDetails'
-import { Link } from 'react-router-dom'
+import Spinner from 'react-bootstrap/Spinner';
+import ScrollToTop from "react-scroll-to-top";
 
-function ProductDetails( { products, addToCart, cartError }) {
+
+
+function ProductDetails( { products, addToCart, cartError, cartLoader, cartNote }) {
 
     const { id } = useParams();
     const [ value, setValue ] = useState('');
     const [ pageError, setPageError ] = useState(true);
-
+    const navigate = useNavigate()
 
     const takeInput = (e) => {
 
@@ -29,13 +32,16 @@ function ProductDetails( { products, addToCart, cartError }) {
 
     }
 
-    
-
-    
 
   return (
     <DetailsContainer>
-      { products.map((product) => (
+      {
+      products.length === 0 ?
+        <div className="details-spinner">
+          <Spinner animation="border" />
+        </div>
+       :      
+        products.map((product) => (
 
         product.id.toString() === id && product !== undefined ? 
 
@@ -53,7 +59,7 @@ function ProductDetails( { products, addToCart, cartError }) {
                 <label htmlFor="quantity">Quantity:</label>
                 <input type="number" min="1" name="quantity" onChange = { takeInput }/>
               </div>
-              <button onClick={ () => { addToCart(product.id, value)}} disabled={ pageError ? true : false }>Add to cart</button>
+              <button onClick={ () => { addToCart(product.id, value)}} disabled={ pageError || cartLoader ? true : false }>{ cartLoader ? <Spinner animation="border" variant="light" size="sm"/> : 'Add To Cart'}</button>
             </DetailsSection>
           </DetailsFlex>
           <Ingredients>
@@ -77,7 +83,7 @@ function ProductDetails( { products, addToCart, cartError }) {
                 { 
                   product.related_products.map((item) => (
 
-                    <OtherProductsCard to={`/products/${ item.id }`} key={item.id}>
+                    <OtherProductsCard  key={item.id} to={`/products/${ item.id }`} onClick = { <ScrollToTop smooth /> }>
                       <img src={item.image.url} alt="small item pics" />
 
                       <h2>{item.name}</h2>

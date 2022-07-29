@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalStyles from './GlobalStyles';
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter as Router, useLocation } from 'react-router-dom'
 import Home from './pages/Home';
 import Order from './pages/Order';
 import Menu from './pages/Menu';
 import About from './pages/About';
-import Blog from './pages/Blog';
 import Nav from './components/compound/Nav';
 import Footer from './components/compound/Footer';
 import ProductDetails from './components/order/details/ProductDetails';
@@ -21,6 +20,8 @@ function App() {
   const [ products, setProducts ] = useState([])
   const [ cart, setCart ] = useState({});
   const [ cartError, setCartError ] = useState('');
+  const [order, setOrder] = useState({})
+  const [ errorMssg, setErrorMssg ] = useState('');
 
   const fetchProducts = async () => {
 
@@ -52,38 +53,66 @@ function App() {
     }
   }
 
+  const [ cartLoader, setCartLoader ] = useState(false);
+  const [cartNote, setCartNote ] = useState(false);
   const addToCart = async (productId, quantity) => {
 
 
     try {
 
+      setCartLoader(true)
       const item = await commerce.cart.add(productId, quantity)
       
-      setCart(item.cart)
+      setCart(item.cart);
 
     }catch(error) {
 
       setCartError(error)
 
+    }finally {
+      setCartLoader(false);
+      setCartNote(true);
     }
   }
 
+  
+
+
+  const [loading, setLoading ] = useState(false);
 
   const updateCart = async (productId, quantity) => {
 
-    const { cart } = await commerce.cart.update(productId, { quantity });
+    
+    try{
 
-    setCart(cart)
+      setLoading(true);     
+      const { cart } = await commerce.cart.update(productId, { quantity });
+      setCart(cart)
+    }catch(error) {
+
+      console.log(error)
+    }finally {
+
+      setLoading(false);
+    }
 
   }
 
 
   const removeFromCart = async (productId) => {
 
-    const { cart } = await commerce.cart.remove(productId)
     
+    try {
+      setLoading(true);     
+      const { cart } = await commerce.cart.remove(productId)
+      setCart(cart);
 
-    setCart(cart);
+    }catch(error) {
+      console.log(error)
+    }finally {
+
+      setLoading(false);
+    }
 
   };
 
@@ -94,15 +123,13 @@ function App() {
       setCart(newCart);
   }
 
-  const [order, setOrder] = useState({})
-  const [ errorMssg, setErrorMssg ] = useState('');
+  
   
   const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
 
       try {
 
         const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder)
-
         setOrder(incomingOrder)
         refreshCart();
 
@@ -115,40 +142,30 @@ function App() {
 
   }
 
-  const [show, setShow ] = useState(true);
-
-
   useEffect(() => {
-
     fetchProducts();
     fetchCart();
-
-
-
   }, []);
 
- 
-
+  const { pathname }  = useLocation();
 
   return (
     <div className="App">
       <GlobalStyles />
       
-      <BrowserRouter>
-        {show && <Nav cartItems = { cart.total_items }/>} 
+      <>
+        {pathname !== '/checkout' && <Nav cartItems = { cart.total_items }/>}
         <Routes>
           <Route exact path="/" element = {<Home />} />
           <Route path="/order/*" element = {<Order products={ products } />} />
           <Route path="/menu" element = {<Menu />} />
           <Route path="/about" element = {<About />} />
-          <Route path="/blog" element = {<Blog />} />
-          <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError }/>} />
-          <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart }/>} />
-          <Route path='/checkout' element={<Checkout setShow = { setShow } cart={ cart } order={order} onCaptureCheckOut={ handleCaptureCheckout} error={errorMssg}/> } />
+          <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote }/>} />
+          <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
+          <Route path='/checkout' element={<Checkout cart={ cart } order={order} onCaptureCheckOut={ handleCaptureCheckout} error={errorMssg}/> } />
         </Routes>
-
-        {show && <Footer />}
-      </BrowserRouter>
+        {pathname !== '/checkout' && <Footer />}
+      </>
     </div>
   );
 }

@@ -8,6 +8,21 @@ export const CartContainer = styled.section`
 
     margin-top: 4.32rem;
     padding: 3.5rem 2rem;
+    position: relative;
+
+    .loading-container {
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
     
     h2 {
         margin-bottom: 4rem;
