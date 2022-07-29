@@ -22,6 +22,14 @@ export const DetailsContainer = styled.div`
         justify-content: center;
     }
 
+    .toast {
+
+        position: fixed;
+        top: 20%;
+        left: 5%;
+
+    }
+
 
 
 `

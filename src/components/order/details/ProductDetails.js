@@ -3,10 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { DetailsContainer, Product, DetailsFlex, ImageSection, DetailsSection, IngredientsFlex, Ingredients, OthersGrid, OtherProducts, OtherProductsCard } from './styledProductDetails'
 import Spinner from 'react-bootstrap/Spinner';
 import ScrollToTop from "react-scroll-to-top";
+import Toast from 'react-bootstrap/Toast';
 
 
 
-function ProductDetails( { products, addToCart, cartError, cartLoader, cartNote }) {
+function ProductDetails( { products, addToCart, cartError, cartLoader, cartNote, setCartNote }) {
 
     const { id } = useParams();
     const [ value, setValue ] = useState('');
@@ -32,9 +33,39 @@ function ProductDetails( { products, addToCart, cartError, cartLoader, cartNote 
 
     }
 
+    
+    
+  useEffect (() => {
+      
+      setTimeout (() => {
+  
+        setCartNote(false);
+  
+      }, 3000)
+
+  }, [cartNote])
+
 
   return (
     <DetailsContainer>
+
+      <>
+      {
+        cartNote ?
+
+          <Toast className="toast">
+            <Toast.Header>
+              <strong className="me-auto">Notification</strong>
+            </Toast.Header>
+            <Toast.Body>New Item has been added to cart!</Toast.Body>
+          </Toast>
+
+        :
+
+        null
+      }
+
+      </>
       {
       products.length === 0 ?
         <div className="details-spinner">
