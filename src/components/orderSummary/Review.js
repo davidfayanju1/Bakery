@@ -52,7 +52,7 @@ const Review = ({ checkoutToken, setOpenPage, onCaptureCheckOut, shippingData })
 
             onCaptureCheckOut(checkoutToken.id, orderData);
 
-            navigate('/')
+            navigate('/confirmation');
         }
     }
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { commerce } from '../lib/commerce';
 import { useForm, FormProvider } from 'react-hook-form';
 import Review from '../components/orderSummary/Review';
+import Spinner from 'react-bootstrap/Spinner';
 
 function Checkout({ cart, order, onCaptureCheckOut, error }) {
 
@@ -183,9 +184,9 @@ function Checkout({ cart, order, onCaptureCheckOut, error }) {
                   <FormGroup>
                     <label htmlFor="shippingSubdivision">Shipping Region</label>
                     <select name="shippingcountry" value={ shippingSubdivision } onChange={ (e) => setShippingSubdivision(e.target.value)}>
-                      {loading ? 
+                      { loading ? 
                       <option>
-                        LOADING...
+                        Loading...
                       </option>
                       :
                       subdivisions.map((subdivision) => (

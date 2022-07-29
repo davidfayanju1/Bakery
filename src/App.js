@@ -12,6 +12,7 @@ import ProductDetails from './components/order/details/ProductDetails';
 import { commerce } from './lib/commerce'
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import Confirmation from './pages/Confirmation';
 
 
 function App() {
@@ -154,7 +155,7 @@ function App() {
       <GlobalStyles />
       
       <>
-        {pathname !== '/checkout' && <Nav cartItems = { cart.total_items }/>}
+        {pathname !== '/checkout' && pathname !== '/confirmation' && <Nav cartItems = { cart.total_items }/>}
         <Routes>
           <Route exact path="/" element = {<Home />} />
           <Route path="/order/*" element = {<Order products={ products } />} />
@@ -163,8 +164,9 @@ function App() {
           <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote } setCartNote={ setCartNote }/>} />
           <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
           <Route path='/checkout' element={<Checkout cart={ cart } order={order} onCaptureCheckOut={ handleCaptureCheckout} error={errorMssg}/> } />
+          <Route path='/confirmation' element={<Confirmation />} />
         </Routes>
-        {pathname !== '/checkout' && <Footer />}
+        {pathname !== '/checkout' && pathname !== '/confirmation' && <Footer />}
       </>
     </div>
   );
