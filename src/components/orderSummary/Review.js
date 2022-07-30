@@ -89,6 +89,9 @@ const Review = ({ checkoutToken, setOpenPage, onCaptureCheckOut, shippingData })
                 </CardTotal>
 
                 {/* stripe */}
+
+                <h4>Payment method</h4>
+                <br />
                 <Elements stripe={stripePromise}>
                     <ElementsConsumer>
                         {({elements, stripe}) => (

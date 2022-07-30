@@ -53,7 +53,7 @@ export const CheckoutForm = styled.div`
     width: 100%;
     background-color: rgb(243, 243, 243);
     padding: 2rem 0rem;
-    height: 100vh;
+    height: 110vh;
 
     .form-title {
         margin: 0 auto;
@@ -132,7 +132,7 @@ export const Form = styled.div`
     }
 
     @media screen and (max-width: 768px) {
-        height: 100vh;
+        height: 120vh;
     }
 
 

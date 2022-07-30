@@ -1,6 +1,5 @@
 import React from 'react'
 import ImageSlider from '../components/home/carousel/ImageSlider';
-import Footer from '../components/compound/Footer';
 import Jumbotron from '../components/home/jumbotron/Jumbotron';
 import Showcase from '../components/home/showcase/Showcase';
 import Slick from '../components/home/slick/Slick';

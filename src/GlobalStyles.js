@@ -1,11 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
-
 const GlobalStyles = createGlobalStyle`
 
     @font-face {
         font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        src: local("proxima-nova"), url(./fonts/ProximaNova-Regular.otf) format('openType');
+        src: local("proxima-nova"), url('./fonts/ProximaNova-Regular.otf') format('openType');
     }
 
     *{

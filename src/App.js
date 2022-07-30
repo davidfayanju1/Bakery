@@ -163,8 +163,8 @@ function App() {
           <Route path="/about" element = {<About />} />
           <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote } setCartNote={ setCartNote }/>} />
           <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
-          <Route path='/checkout' element={<Checkout cart={ cart } order={order} onCaptureCheckOut={ handleCaptureCheckout} error={errorMssg}/> } />
-          <Route path='/confirmation' element={<Confirmation />} />
+          <Route path='/checkout' element={<Checkout cart={ cart }  onCaptureCheckOut={ handleCaptureCheckout}/> } />
+          <Route path='/confirmation' element={<Confirmation order={order} error={errorMssg}/>} />
         </Routes>
         {pathname !== '/checkout' && pathname !== '/confirmation' && <Footer />}
       </>

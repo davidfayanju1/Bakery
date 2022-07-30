@@ -6,7 +6,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import Review from '../components/orderSummary/Review';
 import Spinner from 'react-bootstrap/Spinner';
 
-function Checkout({ cart, order, onCaptureCheckOut, error }) {
+function Checkout({ cart, order, onCaptureCheckOut }) {
 
   const [ shippingCountries, setShippingCountries ] = useState([]);
   const [shippingCountry, setShippingCountry ] = useState('');
@@ -130,7 +130,8 @@ function Checkout({ cart, order, onCaptureCheckOut, error }) {
     setShippingData({...data, shippingSubdivision, shippingOption, shippingCountry })
     setOpenPage(true);
       
-  };  
+  };
+  
 
   return (
     <CheckoutContainer>
@@ -221,7 +222,7 @@ function Checkout({ cart, order, onCaptureCheckOut, error }) {
           </Form>
         </CheckoutForm>
         :
-        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } order = { order } onCaptureCheckOut = {onCaptureCheckOut} error = {error} shippingData={ shippingData }/>
+        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } order = { order } onCaptureCheckOut = {onCaptureCheckOut} shippingData={ shippingData }/>
       }
     </div>
     </CheckoutContainer>
