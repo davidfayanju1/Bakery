@@ -17,11 +17,12 @@ export const CartContainer = styled.section`
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.03);
+        background-color: rgba(0, 0, 0, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
-
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
     }
     
     h2 {

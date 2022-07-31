@@ -63,7 +63,7 @@ const Review = ({ checkoutToken, setOpenPage, onCaptureCheckOut, shippingData })
                 <h1>Order Summary</h1>
             </div>
 
-            <div>
+            <>
                 {
                    checkoutToken.live.line_items.map((product) => (
                     <CardFlex key={product.id}>
@@ -80,7 +80,7 @@ const Review = ({ checkoutToken, setOpenPage, onCaptureCheckOut, shippingData })
 
                    ))
                 }
-            </div>
+            </>
             
             <Payment>
                 <CardTotal>

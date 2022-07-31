@@ -22,8 +22,9 @@ function Bread({products}) {
     <AllProductsContainer>
       {
         breads.length === 0 ?
-              
-        <Spinner animation="border" />
+        <div className="product-spinner">
+          <Spinner animation="border" />
+        </div>      
         
         :
 

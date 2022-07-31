@@ -9,8 +9,9 @@ function AllProducts({ products }) {
     <AllProductsContainer>
       {
        products.length === 0 ?
-       
-       <Spinner animation="border" />
+       <div className="product-spinner">
+         <Spinner animation="border" />
+       </div>
        :
        products.map ((product) => (
           <ProductCard key= {product.id} to={`/products/${ product.id }`}>

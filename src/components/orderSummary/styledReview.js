@@ -24,7 +24,7 @@ export const ReviewCard = styled.div`
     background-color: white;
     padding: 1.7rem 2rem;
     margin: 0 auto;
-
+    height: 100%;
 
     .card-title {
 
@@ -64,7 +64,6 @@ export const CardFlex = styled.div`
     align-items: flex-start;
     width: 100%;
     justify-content: space-between;
-    min-height: 100%;
     margin-bottom: .85rem;
 
     .card-name {
@@ -128,17 +127,7 @@ export const CardTotal = styled.div`
         font-weight: 700;
     }
 
-   /* @media screen and (max-width: 565px) {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 6rem;
-        border-top: 1px grey solid;
-        padding: 1rem 1rem;
-
-
-   } */
+   
 
 `
 
@@ -148,8 +137,9 @@ export const Payment = styled.div`
    display: flex;
    flex-direction: column;
    background-color: white;
+   padding: 2rem 0rem;
 
-@media screen and (max-width: 565px) {
+/* @media screen and (max-width: 565px) {
         position: fixed;
         bottom: 0;
         left: 0;
@@ -157,7 +147,7 @@ export const Payment = styled.div`
         height: 20rem;
         border-top: 1px grey solid;
         padding: 1rem 1rem;
-   }
+   } */
 
 
 `

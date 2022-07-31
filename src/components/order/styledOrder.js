@@ -98,6 +98,21 @@ export const AllProductsContainer = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     grid-gap: 1.5rem;
     align-items: start;
+    position: relative;
+
+    .product-spinner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
 
 `
 

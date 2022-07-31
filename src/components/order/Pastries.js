@@ -23,7 +23,9 @@ function Pastries({ products }) {
       {
       pastriesArray.length === 0 ?
               
-       <Spinner animation="border" />
+      <div className="product-spinner">
+        <Spinner animation="border" />
+      </div>
               
         :
 

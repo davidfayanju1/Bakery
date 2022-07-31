@@ -53,7 +53,7 @@ export const CheckoutForm = styled.div`
     width: 100%;
     background-color: rgb(243, 243, 243);
     padding: 2rem 0rem;
-    height: 110vh;
+    min-height: 110vh;
 
     .form-title {
         margin: 0 auto;
@@ -93,8 +93,6 @@ export const Form = styled.div`
     }
 
     form {
-
-
         .submit-button {
 
             width: 100%;
@@ -103,7 +101,7 @@ export const Form = styled.div`
             align-items: center;
 
             button {
-
+                color: grey;
                 width: 7rem;
                 height: 2.3rem;
                 border: 1px solid lightgrey;
@@ -132,7 +130,7 @@ export const Form = styled.div`
     }
 
     @media screen and (max-width: 768px) {
-        height: 120vh;
+        min-height: 120vh;
     }
 
 
@@ -178,6 +176,7 @@ export const FormGroup = styled.div`
         outline: none;
         padding: 1rem 1rem;
         font-size: 16px;
+        border-radius: 0px;
 
         &::placeholder {
         
