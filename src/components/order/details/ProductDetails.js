@@ -7,9 +7,9 @@ import Toast from 'react-bootstrap/Toast';
 import { useAuth } from '../../../context';
 
 
-function ProductDetails( { addToCart, cartError, cartLoader, cartNote, setCartNote }) {
+function ProductDetails() {
 
-    const { products } = useAuth();
+    const { products, addToCart, cartError, cartLoader, cartNote, setCartNote } = useAuth();
     const { id } = useParams();
     const [ value, setValue ] = useState('');
     const [ pageError, setPageError ] = useState(true);

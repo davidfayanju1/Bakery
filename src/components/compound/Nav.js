@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { DesktopNav, MobileNav, NavItems, NavList, NavHeader, Icon } from './styledNav';
+import { useAuth } from '../../context';
 
-
-const Nav = (cartItems) => {
-
+const Nav = () => {
   const [showNav, setShowNav] = useState(false);
+
+  const { cart } = useAuth();
+  const cartItems = cart.total_items; 
+  console.log(cartItems, cart); 
   
+
   return (
     <NavHeader>
       <DesktopNav>
@@ -37,7 +41,7 @@ const Nav = (cartItems) => {
         
         <Icon>
           <div className="icon-container">
-            <p>{ cartItems === undefined ? '...' : cartItems.cartItems }</p>
+            <p>{ cartItems === undefined ? '...' : cartItems }</p>
             <Link to="/cart"><AiOutlineShoppingCart id='cartIcon' /></Link>
           </div>
           <div className={`hamburger ${showNav ? 'is-active' : null}`} onClick={() => setShowNav(!showNav)}>

@@ -5,9 +5,11 @@ import { commerce } from '../lib/commerce';
 import { useForm, FormProvider } from 'react-hook-form';
 import Review from '../components/orderSummary/Review';
 import Spinner from 'react-bootstrap/Spinner';
+import { useAuth } from '../context';
 
-function Checkout({ cart, order, onCaptureCheckOut }) {
-
+function Checkout({ order, onCaptureCheckOut }) {
+  
+  const { cart } = useAuth();
   const [ shippingCountries, setShippingCountries ] = useState([]);
   const [shippingCountry, setShippingCountry ] = useState('');
   const [ shippingSubdivisions, setShippingSubdivisions ] = useState([]);

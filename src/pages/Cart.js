@@ -5,9 +5,13 @@ import { MdCancel } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { commerce } from '../lib/commerce';
 import Spinner from 'react-bootstrap/Spinner';
+import { useAuth } from '../context';
 
-const Cart = ({ cart, removeFromCart, updateCart, loading }) => {
+const Cart = ({ removeFromCart, updateCart, loading }) => {
     
+    const { cart } = useAuth();
+
+
   return (
     <CartContainer>
 

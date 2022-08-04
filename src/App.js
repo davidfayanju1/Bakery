@@ -21,24 +21,6 @@ function App() {
   const [ cartError, setCartError ] = useState('');
   const [order, setOrder] = useState({})
   const [ errorMssg, setErrorMssg ] = useState('');
-
-
-  const fetchCart = async () => {
-
-    try{
-
-      const cart = await commerce.cart.retrieve();
-      
-      setCart(cart)
-      
-
-    }catch(error){
-
-      console.log(error)
-
-    }
-  }
-
   const [ cartLoader, setCartLoader ] = useState(false);
   const [cartNote, setCartNote ] = useState(false);
   const addToCart = async (productId, quantity) => {
@@ -60,6 +42,7 @@ function App() {
       setCartNote(true);
     }
   }
+
 
   const [loading, setLoading ] = useState(false);
 
@@ -125,9 +108,6 @@ function App() {
 
   }
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
 
   const { pathname }  = useLocation();
 
@@ -137,15 +117,15 @@ function App() {
         <GlobalStyles />
         
         <>
-          {pathname !== '/checkout' && pathname !== '/confirmation' && <Nav cartItems = { cart.total_items }/>}
+          {pathname !== '/checkout' && pathname !== '/confirmation' && <Nav />}
           <Routes>
             <Route exact path="/" element = {<Home />} />
             <Route path="/order/*" element = {<Order />} />
             <Route path="/menu" element = {<Menu />} />
             <Route path="/about" element = {<About />} />
             <Route path="/products/:id" element={<ProductDetails addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote } setCartNote={ setCartNote }/>} />
-            <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
-            <Route path='/checkout' element={<Checkout cart={ cart }  onCaptureCheckOut={ handleCaptureCheckout}/> } />
+            <Route path='/cart' element={ <Cart updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
+            <Route path='/checkout' element={<Checkout  onCaptureCheckOut={ handleCaptureCheckout}/> } />
             <Route path='/confirmation' element={<Confirmation order={order} error={errorMssg}/>} />
           </Routes>
           {pathname !== '/checkout' && pathname !== '/confirmation' && <Footer />}
