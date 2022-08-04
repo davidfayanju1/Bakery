@@ -5,10 +5,7 @@ import Bread from '../components/order/Bread';
 import Pastries from '../components/order/Pastries';
 import { Aside, OrderContainer, OrderContent } from '../components/order/styledOrder';
 
-
-
-const Order = ({ products }) => {
-
+const Order = () => {
   let selected = {
     fontWeight: 'bolder'
   }
@@ -25,9 +22,9 @@ const Order = ({ products }) => {
 
       <OrderContent>
         <Routes>
-          <Route path="/" element={<AllProducts products = { products }/>} />
-          <Route path="pastries" element={<Pastries products = { products }/>} />
-          <Route path="breads" element={<Bread products = { products }/>} />
+          <Route path="/" element={<AllProducts />} />
+          <Route path="pastries" element={<Pastries />} />
+          <Route path="breads" element={<Bread />} />
         </Routes>
       </OrderContent>
     </OrderContainer>

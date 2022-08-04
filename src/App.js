@@ -13,30 +13,15 @@ import { commerce } from './lib/commerce'
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Confirmation from './pages/Confirmation';
+import { BakeryProvider } from './context';
 
 
 function App() {
-
-
-  const [ products, setProducts ] = useState([])
   const [ cart, setCart ] = useState({});
   const [ cartError, setCartError ] = useState('');
   const [order, setOrder] = useState({})
   const [ errorMssg, setErrorMssg ] = useState('');
 
-  const fetchProducts = async () => {
-
-    try {
-
-      const { data }  = await commerce.products.list()
-
-      setProducts( data );
-      
-    }catch(error) {
-
-      console.log('on your products', error);
-    }    
-  }
 
   const fetchCart = async () => {
 
@@ -75,9 +60,6 @@ function App() {
       setCartNote(true);
     }
   }
-
-  
-
 
   const [loading, setLoading ] = useState(false);
 
@@ -144,7 +126,6 @@ function App() {
   }
 
   useEffect(() => {
-    fetchProducts();
     fetchCart();
   }, []);
 
@@ -152,22 +133,24 @@ function App() {
 
   return (
     <div className="App">
-      <GlobalStyles />
-      
-      <>
-        {pathname !== '/checkout' && pathname !== '/confirmation' && <Nav cartItems = { cart.total_items }/>}
-        <Routes>
-          <Route exact path="/" element = {<Home />} />
-          <Route path="/order/*" element = {<Order products={ products } />} />
-          <Route path="/menu" element = {<Menu />} />
-          <Route path="/about" element = {<About />} />
-          <Route path="/products/:id" element={<ProductDetails products={ products } addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote } setCartNote={ setCartNote }/>} />
-          <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
-          <Route path='/checkout' element={<Checkout cart={ cart }  onCaptureCheckOut={ handleCaptureCheckout}/> } />
-          <Route path='/confirmation' element={<Confirmation order={order} error={errorMssg}/>} />
-        </Routes>
-        {pathname !== '/checkout' && pathname !== '/confirmation' && <Footer />}
-      </>
+      <BakeryProvider>
+        <GlobalStyles />
+        
+        <>
+          {pathname !== '/checkout' && pathname !== '/confirmation' && <Nav cartItems = { cart.total_items }/>}
+          <Routes>
+            <Route exact path="/" element = {<Home />} />
+            <Route path="/order/*" element = {<Order />} />
+            <Route path="/menu" element = {<Menu />} />
+            <Route path="/about" element = {<About />} />
+            <Route path="/products/:id" element={<ProductDetails addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote } setCartNote={ setCartNote }/>} />
+            <Route path='/cart' element={ <Cart cart={ cart }  updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
+            <Route path='/checkout' element={<Checkout cart={ cart }  onCaptureCheckOut={ handleCaptureCheckout}/> } />
+            <Route path='/confirmation' element={<Confirmation order={order} error={errorMssg}/>} />
+          </Routes>
+          {pathname !== '/checkout' && pathname !== '/confirmation' && <Footer />}
+        </>
+      </BakeryProvider>
     </div>
   );
 }

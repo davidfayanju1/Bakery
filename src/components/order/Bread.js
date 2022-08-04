@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import aboutImage from '../images/aboutImage.jpeg';
 import { AllProductsContainer, ProductCard } from './styledOrder';
 import Spinner from 'react-bootstrap/Spinner';
+import { useAuth } from '../../context';
 
 
 
-function Bread({products}) {
+function Bread() {
+
+  const { products } = useAuth();
 
   const [ breads, setBreads ] = useState([]);
 

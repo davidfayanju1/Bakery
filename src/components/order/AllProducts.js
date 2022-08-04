@@ -2,8 +2,14 @@ import React from 'react';
 import aboutImage from '../images/aboutImage.jpeg';
 import { AllProductsContainer, ProductCard } from './styledOrder';
 import Spinner from 'react-bootstrap/Spinner';
+import { useAuth } from '../../context';
 
-function AllProducts({ products }) {
+
+function AllProducts() {
+
+  const { products } = useAuth();
+
+  
 
   return (
     <AllProductsContainer>

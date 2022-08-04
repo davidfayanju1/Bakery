@@ -4,11 +4,12 @@ import { DetailsContainer, Product, DetailsFlex, ImageSection, DetailsSection, I
 import Spinner from 'react-bootstrap/Spinner';
 import ScrollToTop from "react-scroll-to-top";
 import Toast from 'react-bootstrap/Toast';
+import { useAuth } from '../../../context';
 
 
+function ProductDetails( { addToCart, cartError, cartLoader, cartNote, setCartNote }) {
 
-function ProductDetails( { products, addToCart, cartError, cartLoader, cartNote, setCartNote }) {
-
+    const { products } = useAuth();
     const { id } = useParams();
     const [ value, setValue ] = useState('');
     const [ pageError, setPageError ] = useState(true);
@@ -31,10 +32,7 @@ function ProductDetails( { products, addToCart, cartError, cartLoader, cartNote,
 
       }
 
-    }
-
-    
-    
+    }    
   useEffect (() => {
       
       setTimeout (() => {
