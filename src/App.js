@@ -17,36 +17,6 @@ import { BakeryProvider } from './context';
 
 
 function App() {
-  const [ cart, setCart ] = useState({});
-  const [order, setOrder] = useState({})
-  const [ errorMssg, setErrorMssg ] = useState('');
-   
-  const refreshCart = async () => {
-
-      const newCart = await commerce.cart.refresh();
-      setCart(newCart);
-  }
-
-  
-  
-  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
-
-      try {
-
-        const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder)
-        setOrder(incomingOrder)
-        refreshCart();
-
-      }catch(error) {
-
-        setErrorMssg(error.data.error.message)
-
-      }
-
-
-  }
-
-
   const { pathname }  = useLocation();
 
   return (
