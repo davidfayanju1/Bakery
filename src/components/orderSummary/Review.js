@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { ReviewContainer, ReviewCard, CardFlex, CardTotal, StripeButtons, Payment } from './styledReview'
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { useAuth } from '../../context';
+
 
 const stripePromise = loadStripe('pk_test_51LP8YtGloqAAr7uq9SzmJDNLjP8oU4F9KJjtIERCxVefYwVQv3tYZzloP29YLAXvWJP4LwLeHSe0HpLUTQ0aA8ML00sX1L0xnW');
 
-const Review = ({ checkoutToken, setOpenPage, onCaptureCheckOut, shippingData }) => {
+const Review = ({ checkoutToken, setOpenPage,  shippingData }) => {
     
+    const { handleCaptureCheckout, order } = useAuth()
+
     const navigate = useNavigate();
     
     const submitForm = async (e, elements, stripe) => {
@@ -50,7 +54,7 @@ const Review = ({ checkoutToken, setOpenPage, onCaptureCheckOut, shippingData })
 
             
 
-            onCaptureCheckOut(checkoutToken.id, orderData);
+            handleCaptureCheckout(checkoutToken.id, orderData);
 
             navigate('/confirmation');
         }

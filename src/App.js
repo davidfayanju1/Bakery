@@ -18,71 +18,9 @@ import { BakeryProvider } from './context';
 
 function App() {
   const [ cart, setCart ] = useState({});
-  const [ cartError, setCartError ] = useState('');
   const [order, setOrder] = useState({})
   const [ errorMssg, setErrorMssg ] = useState('');
-  const [ cartLoader, setCartLoader ] = useState(false);
-  const [cartNote, setCartNote ] = useState(false);
-  const addToCart = async (productId, quantity) => {
-
-
-    try {
-
-      setCartLoader(true)
-      const item = await commerce.cart.add(productId, quantity)
-      
-      setCart(item.cart);
-
-    }catch(error) {
-
-      setCartError(error)
-
-    }finally {
-      setCartLoader(false);
-      setCartNote(true);
-    }
-  }
-
-
-  const [loading, setLoading ] = useState(false);
-
-  const updateCart = async (productId, quantity) => {
-
-    
-    try{
-
-      setLoading(true);     
-      const { cart } = await commerce.cart.update(productId, { quantity });
-      setCart(cart)
-    }catch(error) {
-
-      console.log(error)
-    }finally {
-
-      setLoading(false);
-    }
-
-  }
-
-
-  const removeFromCart = async (productId) => {
-
-    
-    try {
-      setLoading(true);     
-      const { cart } = await commerce.cart.remove(productId)
-      setCart(cart);
-
-    }catch(error) {
-      console.log(error)
-    }finally {
-
-      setLoading(false);
-    }
-
-  };
-
-
+   
   const refreshCart = async () => {
 
       const newCart = await commerce.cart.refresh();
@@ -123,10 +61,10 @@ function App() {
             <Route path="/order/*" element = {<Order />} />
             <Route path="/menu" element = {<Menu />} />
             <Route path="/about" element = {<About />} />
-            <Route path="/products/:id" element={<ProductDetails addToCart = { addToCart } cartError={ cartError } cartLoader={ cartLoader } cartNote={ cartNote } setCartNote={ setCartNote }/>} />
-            <Route path='/cart' element={ <Cart updateCart={updateCart} removeFromCart={ removeFromCart } loading={ loading }/>} />
-            <Route path='/checkout' element={<Checkout  onCaptureCheckOut={ handleCaptureCheckout}/> } />
-            <Route path='/confirmation' element={<Confirmation order={order} error={errorMssg}/>} />
+            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/checkout' element={<Checkout /> } />
+            <Route path='/confirmation' element={<Confirmation />} />
           </Routes>
           {pathname !== '/checkout' && pathname !== '/confirmation' && <Footer />}
         </>

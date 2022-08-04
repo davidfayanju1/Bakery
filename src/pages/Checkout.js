@@ -7,7 +7,7 @@ import Review from '../components/orderSummary/Review';
 import Spinner from 'react-bootstrap/Spinner';
 import { useAuth } from '../context';
 
-function Checkout({ order, onCaptureCheckOut }) {
+function Checkout() {
   
   const { cart } = useAuth();
   const [ shippingCountries, setShippingCountries ] = useState([]);
@@ -87,7 +87,6 @@ function Checkout({ order, onCaptureCheckOut }) {
         setShippingSubdivisions( subdivisions )
         setShippingSubdivision(Object.keys(subdivisions)[0])
 
-        console.log(subdivisions)
 
       }catch (error) {
 
@@ -224,7 +223,7 @@ function Checkout({ order, onCaptureCheckOut }) {
           </Form>
         </CheckoutForm>
         :
-        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } order = { order } onCaptureCheckOut = {onCaptureCheckOut} shippingData={ shippingData }/>
+        <Review  checkoutToken={ checkoutToken} setOpenPage={ setOpenPage } shippingData={ shippingData }/>
       }
     </div>
     </CheckoutContainer>

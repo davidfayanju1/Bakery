@@ -2,10 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import styled from 'styled-components';
+import { useAuth } from '../context';
 
+const Confirmation = () => {
 
+  const { order, errorMssg } = useAuth();
 
-const Confirmation = ({ order, error }) => {
   return (
     <ConfirmationContainer>
 
@@ -28,7 +30,7 @@ const Confirmation = ({ order, error }) => {
      
     <>
         {
-          error ? <h3>Error: { error }</h3> : null
+          errorMssg ? <h3>Error: { errorMssg }</h3> : null
         }
     </>
     </ConfirmationContainer>

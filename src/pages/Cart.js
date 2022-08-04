@@ -7,9 +7,9 @@ import { commerce } from '../lib/commerce';
 import Spinner from 'react-bootstrap/Spinner';
 import { useAuth } from '../context';
 
-const Cart = ({ removeFromCart, updateCart, loading }) => {
+const Cart = () => {
     
-    const { cart } = useAuth();
+    const { cart, updateCart, removeFromCart, updateLoading } = useAuth();
 
 
   return (
@@ -17,7 +17,7 @@ const Cart = ({ removeFromCart, updateCart, loading }) => {
 
         <>
             {
-                loading ? 
+                updateLoading ? 
                 <div className="loading-container">
                     <Spinner animation="border" />
                 </div>

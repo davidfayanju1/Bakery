@@ -69,6 +69,72 @@ export const BakeryProvider = ({children}) => {
         }
     }
 
+  const [updateLoading, setUpdateLoading ] = useState(false);
+
+  const updateCart = async (productId, quantity) => {
+
+    
+    try{
+
+        setUpdateLoading(true);     
+      const { cart } = await commerce.cart.update(productId, { quantity });
+      setCart(cart)
+    }catch(error) {
+
+      console.log(error)
+    }finally {
+
+        setUpdateLoading(false);
+    }
+
+  }
+
+  const removeFromCart = async (productId) => {
+
+    
+    try {
+      setUpdateLoading(true);     
+      const { cart } = await commerce.cart.remove(productId)
+      setCart(cart);
+
+    }catch(error) {
+      console.log(error)
+    }finally {
+
+      setUpdateLoading(false);
+    }
+
+  };
+
+  const [order, setOrder] = useState({})
+  const [ errorMssg, setErrorMssg ] = useState('');
+   
+  const refreshCart = async () => {
+
+      const newCart = await commerce.cart.refresh();
+      setCart(newCart);
+  }
+
+  
+  
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+
+      try {
+
+        const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder)
+        setOrder(incomingOrder)
+        refreshCart();
+
+      }catch(error) {
+
+        setErrorMssg(error.data.error.message)
+
+      }
+
+
+  }
+
+
 
     useEffect(() => {
 
@@ -87,7 +153,13 @@ const value = {
     cartError,
     cartLoader, 
     cartNote,
-    setCartNote
+    setCartNote,
+    updateCart,
+    updateLoading,
+    removeFromCart,
+    handleCaptureCheckout,
+    errorMssg,
+    order
 }
 
     return (

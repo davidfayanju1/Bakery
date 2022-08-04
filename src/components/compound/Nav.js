@@ -9,7 +9,6 @@ const Nav = () => {
 
   const { cart } = useAuth();
   const cartItems = cart.total_items; 
-  console.log(cartItems, cart); 
   
 
   return (
