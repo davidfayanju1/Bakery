@@ -151,10 +151,7 @@ export const Icon = styled.div`
                 width: 100%;
                 background-color: #AF524B;
                 transition: all 0.3s ease-in-out;
-
             }
-
-            
 
             .burger:nth-child(1) {
                 margin-bottom: 0.4rem;

@@ -6,6 +6,7 @@ import Pastries from '../components/order/Pastries';
 import { Aside, OrderContainer, OrderContent } from '../components/order/styledOrder';
 
 const Order = () => {
+  
   let selected = {
     fontWeight: 'bolder'
   }

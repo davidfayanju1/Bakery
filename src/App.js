@@ -14,6 +14,7 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import Confirmation from './pages/Confirmation';
 import { BakeryProvider } from './context';
+import ScrollToTop from './ScrollToTop';
 
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
   return (
     <div className="App">
       <BakeryProvider>
+        <ScrollToTop />   
         <GlobalStyles />
-        
         <>
           {pathname !== '/checkout' && pathname !== '/confirmation' && <Nav />}
           <Routes>
